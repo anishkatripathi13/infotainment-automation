@@ -1,41 +1,27 @@
+from simulator.bluetooth import connect_device
+from simulator.media import play_music, pause_music, stop_music
+from simulator.navigation import start_navigation
+from simulator.voice import handle_voice_command
+
 class InfotainmentSystem:
     def __init__(self):
-        self.bluetooth_connected = False
-        self.media_playing = False
-        self.current_song = None
-        self.navigation_running = False
+        self.connected_device = None
 
-    def connect_bluetooth(self, device_name):
-        if device_name:
-            self.bluetooth_connected = True
-            return f"Connected to {device_name}"
-        return "No device found"
+    def connect_bluetooth(self, device):
+        self.connected_device = device
+        return connect_device(device)
 
-    def play_media(self, song):
-        if self.bluetooth_connected:
-            self.media_playing = True
-            self.current_song = song
-            return f"Now playing: {song}"
-        return "Bluetooth not connected"
+    def play(self):
+        return play_music()
 
-    def stop_media(self):
-        self.media_playing = False
-        return "Media stopped"
+    def pause(self):
+        return pause_music()
 
-    def start_navigation(self, destination):
-        if destination:
-            self.navigation_running = True
-            return f"Navigation started to {destination}"
-        return "Destination not set"
+    def stop(self):
+        return stop_music()
 
-    def stop_navigation(self):
-        self.navigation_running = False
-        return "Navigation stopped"
+    def navigate_to(self, destination):
+        return start_navigation(destination)
 
-    def recognize_voice_command(self, command):
-        commands = {
-            "play": "Playing media",
-            "stop": "Stopping media",
-            "navigate home": "Starting navigation to home"
-        }
-        return commands.get(command.lower(), "Command not recognized")
+    def voice_command(self, command):
+        return handle_voice_command(command)
