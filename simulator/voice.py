@@ -1,4 +1,3 @@
-
 def handle_voice_command(command):
     if command.lower() == "play music":
         return "Playing music"
